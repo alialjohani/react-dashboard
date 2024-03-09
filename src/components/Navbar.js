@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -6,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import DateTime from "./DateTime";
 import ScreenRotationAltIcon from "@mui/icons-material/ScreenRotationAlt";
 import MenuIcon from "@mui/icons-material/Menu";
-import LeftDrawer from "./LeftDrawer";
 import { styled, Toolbar } from "@mui/material";
 
 const StyledToolBar = styled(Toolbar)({
@@ -15,14 +15,7 @@ const StyledToolBar = styled(Toolbar)({
   alignItems: "center",
 });
 
-const Navbar = () => {
-  const [isLeftDrawerOpen, setIsLeftDrawerOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen) => {
-    console.log("here");
-    setIsLeftDrawerOpen(newOpen);
-  };
-
+const Navbar = ({ toggleDrawer }) => {
   return (
     <AppBar position="static" sx={{ padding: 1 }}>
       <StyledToolBar>
@@ -45,18 +38,11 @@ const Navbar = () => {
             color="black"
             sx={{ fontSize: "20px" }}
             onClick={() => {
-              setIsLeftDrawerOpen(true);
+              toggleDrawer(true);
             }}
           >
             <MenuIcon />
           </IconButton>
-          {isLeftDrawerOpen && (
-            <LeftDrawer
-              flex={3}
-              isOpen={isLeftDrawerOpen}
-              toggleDrawer={toggleDrawer}
-            />
-          )}
           <Button
             flex={1}
             size="large"
@@ -93,4 +79,9 @@ const Navbar = () => {
     </AppBar>
   );
 };
+
+Navbar.propTypes = {
+  toggleDrawer: PropTypes.func,
+};
+
 export default Navbar;
