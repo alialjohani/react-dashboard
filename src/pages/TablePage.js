@@ -1,7 +1,8 @@
 import React from "react";
+import Table from "../components/table/Table";
 
 const TablePage = () => {
-  return <p>TablePage</p>;
+  return <Table />;
 };
 
 export default TablePage;

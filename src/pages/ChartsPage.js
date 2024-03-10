@@ -1,10 +1,15 @@
-import { Box } from "@mui/material";
 import React from "react";
+import { Box } from "@mui/material";
+import Bar from "../components/chart/Bar";
+import Pie from "../components/chart/Pie";
+import Line from "../components/chart/Line";
 
 const ChartsPage = () => {
   return (
-    <Box flex={2} p={2} mr="auto">
-      <div>hi</div>
+    <Box m={2}>
+      <Bar />
+      <Pie />
+      <Line />
     </Box>
   );
 };

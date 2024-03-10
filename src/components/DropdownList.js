@@ -5,6 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { color } from "../const/color";
 
 export default function DropdownList({ label, options }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -27,7 +28,7 @@ export default function DropdownList({ label, options }) {
     <div>
       <List
         component="nav"
-        aria-label="Device settings"
+        aria-label="settings"
         sx={{ bgcolor: "background.paper" }}
       >
         <ListItemButton
@@ -35,6 +36,9 @@ export default function DropdownList({ label, options }) {
           aria-haspopup="listbox"
           aria-controls="lock-menu"
           aria-label={label}
+          sx={{
+            color: color.blueDegree,
+          }}
           aria-expanded={open ? "true" : undefined}
           onClick={handleClickListItem}
         >

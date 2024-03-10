@@ -7,6 +7,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DropdownList from "./DropdownList";
+import { color } from "../const/color";
 const drawerWidth = 240;
 
 const optionsAgents = [
@@ -48,6 +49,7 @@ export default function LeftDrawer({ isOpen, toggleDrawer }) {
     >
       <DrawerHeader>
         <IconButton
+          sx={{ color: color.blueDegree }}
           onClick={() => {
             console.log("clicked");
             toggleDrawer(false);

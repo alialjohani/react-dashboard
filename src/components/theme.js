@@ -1,28 +1,17 @@
 import { createTheme } from "@mui/material/styles";
+import { color } from "../const/color";
 
-const color = "secondary";
 export const theme = createTheme({
-  components: {
-    MuiIconButton: {
-      styleOverrides: {
-        sizeMedium: {
-          color,
-        },
-      },
+  palette: {
+    mode: "dark",
+    background: {
+      default: color.grayDegree,
     },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          color,
-        },
-      },
+    text: {
+      primary: color.whiteDegree,
     },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color,
-        },
-      },
+    primary: {
+      main: color.blueDegree,
     },
   },
 });

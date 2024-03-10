@@ -8,6 +8,7 @@ import DateTime from "./DateTime";
 import ScreenRotationAltIcon from "@mui/icons-material/ScreenRotationAlt";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, Toolbar } from "@mui/material";
+import { color } from "../const/color";
 
 const StyledToolBar = styled(Toolbar)({
   display: "flex",
@@ -22,7 +23,6 @@ const Navbar = ({ toggleDrawer }) => {
         <Box
           flex={1}
           sx={{
-            backgroundColor: "green",
             display: "flex",
             justifyContent: "start",
             alignItems: "center",
@@ -35,8 +35,7 @@ const Navbar = ({ toggleDrawer }) => {
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
-            color="black"
-            sx={{ fontSize: "20px" }}
+            sx={{ fontSize: "20px", color: color.blueDegree }}
             onClick={() => {
               toggleDrawer(true);
             }}
@@ -50,10 +49,10 @@ const Navbar = ({ toggleDrawer }) => {
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
             sx={{
-              color: "black",
               fontSize: "20px",
             }}
             variant="text"
+            color="primary"
             startIcon={<ScreenRotationAltIcon />}
           >
             Switch To Table
@@ -62,7 +61,6 @@ const Navbar = ({ toggleDrawer }) => {
         <Box
           flex={1}
           sx={{
-            backgroundColor: "red",
             display: "flex",
             justifyContent: "end",
             alignItems: "center",
@@ -71,7 +69,7 @@ const Navbar = ({ toggleDrawer }) => {
         >
           <DateTime flex={2} label="Show data from:" />
           <DateTime flex={2} label="Show data until:" />
-          <Button flex={1} variant="contained" color="secondary">
+          <Button flex={1} variant="contained" color="primary" text="secondary">
             Show
           </Button>
         </Box>
