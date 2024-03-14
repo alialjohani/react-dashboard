@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -16,7 +17,32 @@ const StyledToolBar = styled(Toolbar)({
   alignItems: "center",
 });
 
+const VIEWS = {
+  CHARTS_VIEW: {
+    label: "CHARTS",
+    path: "/",
+  },
+  TABLE_VIEW: {
+    label: "TABLE",
+    path: "/table",
+  },
+};
+
 const Navbar = ({ toggleDrawer }) => {
+  const { pathname } = useLocation();
+  const mainLabelView =
+    pathname === VIEWS.TABLE_VIEW.path
+      ? VIEWS.CHARTS_VIEW.label
+      : VIEWS.TABLE_VIEW.label;
+  const navigate = useNavigate();
+  const handleSwitchPage = () => {
+    if (pathname === VIEWS.TABLE_VIEW.path) {
+      navigate(VIEWS.CHARTS_VIEW.path);
+    } else {
+      navigate(VIEWS.TABLE_VIEW.path);
+    }
+  };
+
   return (
     <AppBar position="static" sx={{ padding: 1 }}>
       <StyledToolBar>
@@ -54,8 +80,9 @@ const Navbar = ({ toggleDrawer }) => {
             variant="text"
             color="primary"
             startIcon={<ScreenRotationAltIcon />}
+            onClick={(e) => handleSwitchPage(e.target.value)}
           >
-            Switch To Table
+            Switch To {mainLabelView}
           </Button>
         </Box>
         <Box
