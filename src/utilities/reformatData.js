@@ -76,11 +76,9 @@ export const reformatData = function (dataArr) {
 };
 
 const prepareForHourTimeData = function (timeCounters) {
-  console.log("timeCounters>>", timeCounters);
   const data = [];
   timeCounters.forEach((val, key) => {
     data.push({ hourLabel: key, hourCount: val });
-    console.log("obj: ", { id: key, label: key.toString(), data: [val] });
   });
   return data;
 };
@@ -116,20 +114,24 @@ const prepareForAgentsData = function (agentsCounters) {
   });
 
   const seriesServiceSatisfaction = [
-    { id: "ones", label: "ones", data: scoresServiceSatisfaction.ones },
-    { id: "twos", label: "twos", data: scoresServiceSatisfaction.twos },
-    { id: "threes", label: "threes", data: scoresServiceSatisfaction.threes },
-    { id: "fours", label: "fours", data: scoresServiceSatisfaction.fours },
-    { id: "fives", label: "fives", data: scoresServiceSatisfaction.fives },
+    { id: "ones", label: "1/5", data: scoresServiceSatisfaction.ones },
+    { id: "twos", label: "2/5", data: scoresServiceSatisfaction.twos },
+    {
+      id: "threes",
+      label: "3/5",
+      data: scoresServiceSatisfaction.threes,
+    },
+    { id: "fours", label: "4/5", data: scoresServiceSatisfaction.fours },
+    { id: "fives", label: "5/5", data: scoresServiceSatisfaction.fives },
   ];
 
   const seriesAgentSatisfaction = [
-    { id: "ones", label: "ones", data: scoresAgentSatisfaction.ones },
-    { id: "twos", label: "twos", data: scoresAgentSatisfaction.twos },
-    { id: "threes", label: "threes", data: scoresAgentSatisfaction.threes },
-    { id: "fours", label: "fours", data: scoresAgentSatisfaction.fours },
-    { id: "fives", label: "fives", data: scoresAgentSatisfaction.fives },
+    { id: "ones", label: "1/5", data: scoresAgentSatisfaction.ones },
+    { id: "twos", label: "2/5", data: scoresAgentSatisfaction.twos },
+    { id: "threes", label: "3/5", data: scoresAgentSatisfaction.threes },
+    { id: "fours", label: "4/5", data: scoresAgentSatisfaction.fours },
+    { id: "fives", label: "5/5", data: scoresAgentSatisfaction.fives },
   ];
-  console.log("seriesAgentSatisfaction>>> ", seriesAgentSatisfaction);
+  console.log("labels>>> ", labels);
   return { seriesServiceSatisfaction, seriesAgentSatisfaction, labels };
 };
