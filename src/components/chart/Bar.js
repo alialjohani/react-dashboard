@@ -16,6 +16,8 @@ const Bar = ({ series, data, type, dataset }) => {
       yAxis={[{ label: "Number of Calls" }]}
       height={290}
       series={[{ dataKey: "hourCount", label: "Calls Per Hour" }]}
+      onItemClick={(event, d) => console.log(d)}
+      onAxisClick={(event, d) => console.log(d)}
     />
   );
   if (type === "group") {

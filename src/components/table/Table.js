@@ -31,6 +31,7 @@ const initialState = {
   sorting: {
     sortModel: [{ field: "surveyId", sort: "desc" }],
   },
+  pagination: { paginationModel: { pageSize: 10 } },
 };
 const Table = ({ rows }) => {
   return (
@@ -42,6 +43,7 @@ const Table = ({ rows }) => {
           columns={columns}
           slots={{ toolbar: GridToolbar }}
           getRowId={(row) => row.surveyId}
+          pageSizeOptions={[5, 10, 25]}
         />
       </div>
     </Box>

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 const counter = {
   AgentSatisfaction: {
     1: 0,
@@ -15,7 +16,7 @@ const counter = {
   },
 };
 
-var prepareSeriesOverallData = function (counterArr, total) {
+var prepareSeriesOverallData = function (counterArr, total, type) {
   const series = [];
   const dataObj = {
     data: [],
@@ -25,6 +26,7 @@ var prepareSeriesOverallData = function (counterArr, total) {
       id: i,
       value: counterArr[i + 1],
       label: `${i + 1} out of ${total}`,
+      type: type,
     });
   }
   series.push(dataObj);
@@ -62,10 +64,12 @@ export const reformatData = function (dataArr) {
   const seriesAgentSatisfactionOverall = prepareSeriesOverallData(
     counter.AgentSatisfaction,
     5,
+    "AgentSatisfaction",
   );
   const seriesServiceSatisfactionOverall = prepareSeriesOverallData(
     counter.ServiceSatisfaction,
     5,
+    "ServiceSatisfaction",
   );
   return {
     seriesAgentSatisfactionOverall,
@@ -134,4 +138,9 @@ const prepareForAgentsData = function (agentsCounters) {
   ];
   console.log("labels>>> ", labels);
   return { seriesServiceSatisfaction, seriesAgentSatisfaction, labels };
+};
+
+export const getDateTimeUX = function (value) {
+  return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+  //.format().substring(0, 19).replace("T", " ")
 };

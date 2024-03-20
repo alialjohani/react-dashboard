@@ -10,6 +10,8 @@ import ScreenRotationAltIcon from "@mui/icons-material/ScreenRotationAlt";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, Toolbar } from "@mui/material";
 import { color } from "../const/color";
+import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 const StyledToolBar = styled(Toolbar)({
   display: "flex",
@@ -30,6 +32,15 @@ const VIEWS = {
 
 const Navbar = ({ toggleDrawer }) => {
   const { pathname } = useLocation();
+  const fromDatetime = useSelector((state) => state.datetime.fromDatetime);
+  const toDatetime = useSelector((state) => state.datetime.toDatetime);
+  const [localFromDatetime, setLocalFromDatetime] = React.useState(
+    dayjs(fromDatetime),
+  );
+  const [localToDatetime, setLocalToDatetime] = React.useState(
+    dayjs(toDatetime),
+  );
+  // const dispatch = useDispatch();
   const mainLabelView =
     pathname === VIEWS.TABLE_VIEW.path
       ? VIEWS.CHARTS_VIEW.label
@@ -41,6 +52,13 @@ const Navbar = ({ toggleDrawer }) => {
     } else {
       navigate(VIEWS.TABLE_VIEW.path);
     }
+  };
+  const handleShowButoonClick = () => {
+    console.log(">> clicked");
+    // update datetime (from, to), dispatch
+    // update charts by making new request
+    console.log(">> localFromDatetime= ", localFromDatetime);
+    console.log(">> localToDatetime= ", localToDatetime);
   };
 
   return (
@@ -94,9 +112,25 @@ const Navbar = ({ toggleDrawer }) => {
             gap: 2,
           }}
         >
-          <DateTime flex={2} label="Show data from:" />
-          <DateTime flex={2} label="Show data until:" />
-          <Button flex={1} variant="contained" color="primary" text="secondary">
+          <DateTime
+            flex={2}
+            label="Show data from:"
+            datetimeValue={localFromDatetime}
+            onChange={setLocalFromDatetime}
+          />
+          <DateTime
+            flex={2}
+            label="Show data until:"
+            datetimeValue={localToDatetime}
+            onChange={setLocalToDatetime}
+          />
+          <Button
+            flex={1}
+            variant="contained"
+            color="primary"
+            text="secondary"
+            onClick={handleShowButoonClick}
+          >
             Show
           </Button>
         </Box>
