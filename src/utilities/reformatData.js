@@ -141,6 +141,6 @@ const prepareForAgentsData = function (agentsCounters) {
 };
 
 export const getDateTimeUX = function (value) {
-  return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+  return dayjs(value).format("DD/MM/YYYY HH:mm:ss");
   //.format().substring(0, 19).replace("T", " ")
 };

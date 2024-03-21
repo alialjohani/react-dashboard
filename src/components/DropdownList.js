@@ -7,7 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { color } from "../const/color";
 
-export default function DropdownList({ label, options }) {
+export default function DropdownList({
+  label,
+  options,
+  handleSelection,
+  type,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const open = Boolean(anchorEl);
@@ -18,6 +23,7 @@ export default function DropdownList({ label, options }) {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
+    handleSelection(index, type);
   };
 
   const handleClose = () => {
@@ -72,4 +78,6 @@ export default function DropdownList({ label, options }) {
 DropdownList.propTypes = {
   label: PropTypes.string,
   options: PropTypes.array,
+  handleSelection: PropTypes.func,
+  type: PropTypes.string,
 };

@@ -8,14 +8,10 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DropdownList from "./DropdownList";
 import { color } from "../const/color";
+import { useSelector } from "react-redux";
+import { DROPDOWN_TYPE } from "../const/general";
+// import { setSelectedAgent } from "../redux/slices/filterSlice";
 const drawerWidth = 240;
-
-const optionsAgents = [
-  "All Agents",
-  "Agent Name 2",
-  "Agent Name 3",
-  "Agent Name and Famil Name 4",
-];
 
 const optionsLayouts = [
   "1 Chart Per Row",
@@ -33,6 +29,14 @@ export default function LeftDrawer({ isOpen, toggleDrawer }) {
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   }));
+  //const dispatch = useDispatch();
+  let optionsAgents = ["All", ...useSelector((state) => state.filter.agents)];
+  const handleSelection = (index, type) => {
+    if (type === DROPDOWN_TYPE.AGENTS_DROPDOWN) {
+      console.log(">>>>>>>>>optionsAgents>>", optionsAgents[index]);
+      // dispatch(setSelectedAgent(value));
+    }
+  };
   return (
     <Drawer
       sx={{
@@ -60,7 +64,12 @@ export default function LeftDrawer({ isOpen, toggleDrawer }) {
       </DrawerHeader>
       <Divider />
       <List>
-        <DropdownList label="Select Agent" options={optionsAgents} />
+        <DropdownList
+          label="Select Agent"
+          options={optionsAgents}
+          handleSelection={handleSelection}
+          type={DROPDOWN_TYPE.AGENTS_DROPDOWN}
+        />
       </List>
       <Divider />
       <List>

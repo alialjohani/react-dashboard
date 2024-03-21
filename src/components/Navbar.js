@@ -10,8 +10,10 @@ import ScreenRotationAltIcon from "@mui/icons-material/ScreenRotationAlt";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, Toolbar } from "@mui/material";
 import { color } from "../const/color";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
+import { getDateTimeUX } from "../utilities/reformatData";
+import { setFromDatetime, setToDatetime } from "../redux/slices/filterSlice";
 
 const StyledToolBar = styled(Toolbar)({
   display: "flex",
@@ -32,15 +34,15 @@ const VIEWS = {
 
 const Navbar = ({ toggleDrawer }) => {
   const { pathname } = useLocation();
-  const fromDatetime = useSelector((state) => state.datetime.fromDatetime);
-  const toDatetime = useSelector((state) => state.datetime.toDatetime);
+  const fromDatetime = useSelector((state) => state.filter.fromDatetime);
+  const toDatetime = useSelector((state) => state.filter.toDatetime);
   const [localFromDatetime, setLocalFromDatetime] = React.useState(
     dayjs(fromDatetime),
   );
   const [localToDatetime, setLocalToDatetime] = React.useState(
     dayjs(toDatetime),
   );
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const mainLabelView =
     pathname === VIEWS.TABLE_VIEW.path
       ? VIEWS.CHARTS_VIEW.label
@@ -56,9 +58,9 @@ const Navbar = ({ toggleDrawer }) => {
   const handleShowButoonClick = () => {
     console.log(">> clicked");
     // update datetime (from, to), dispatch
+    dispatch(setFromDatetime(getDateTimeUX(localFromDatetime)));
+    dispatch(setToDatetime(getDateTimeUX(localToDatetime)));
     // update charts by making new request
-    console.log(">> localFromDatetime= ", localFromDatetime);
-    console.log(">> localToDatetime= ", localToDatetime);
   };
 
   return (

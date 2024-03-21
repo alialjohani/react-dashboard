@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 import { useGetGeneralDataQuery } from "../redux/slices/apiSlice";
 import Pie from "../components/chart/Pie";
 import Bar from "../components/chart/Bar";
 import { reformatData } from "../utilities/reformatData";
+import { useSelector, useDispatch } from "react-redux";
+import { setAgents } from "../redux/slices/filterSlice";
 // To count how many for the 'AgentSatisfaction' are rated: 1 out of 5, 2 out of 5, ..., 5 out of 5
 // To count how many for the 'ServiceSatisfaction' are rated: 1 out of 5, 2 out of 5, ..., 5 out of 5
 
 const ChartsPage = () => {
+  const dispatch = useDispatch();
+  const fromDatetime = useSelector((state) => state.filter.fromDatetime);
+  const toDatetime = useSelector((state) => state.filter.toDatetime);
+  const selectedAgent = useSelector((state) => state.filter.selectedAgent);
+  let isContentReady = false;
+
   // Using a query hook automatically fetches data and returns query values
   const { data, error, isLoading } = useGetGeneralDataQuery({
-    startdatetime: "01/05/2023 20:00",
-    enddatetime: "31/05/2023 04:00",
-    agents: "*",
+    startdatetime: fromDatetime,
+    enddatetime: toDatetime,
+    agents: selectedAgent,
   });
+
   let serAgentSatisfactionOverall;
   let serServiceSatisfactionOverall;
   let serServiceSatisfaction;
   let serAgentSatisfaction;
   let generalLabels;
   let timeDataset;
-  if (!error && data) {
+  if (
+    !error &&
+    data &&
+    (data.length > 0 || Object.prototype.hasOwnProperty.call(data, "success"))
+  ) {
     const {
       seriesAgentSatisfactionOverall,
       seriesServiceSatisfactionOverall,
@@ -35,7 +48,14 @@ const ChartsPage = () => {
     serAgentSatisfaction = seriesAgentSatisfaction;
     generalLabels = labels;
     timeDataset = timeData;
+    isContentReady = true;
   }
+
+  useEffect(() => {
+    if (generalLabels) {
+      dispatch(setAgents(generalLabels));
+    }
+  }, [generalLabels]);
 
   return (
     <Box mt={2} sx={{ flexGrow: 1 }}>
@@ -44,7 +64,7 @@ const ChartsPage = () => {
           <>Oh no, there was an error</>
         ) : isLoading ? (
           <>Loading...</>
-        ) : data ? (
+        ) : isContentReady ? (
           <Grid container spacing={1}>
             <Grid item xs={6} md={4}>
               <Pie series={serAgentSatisfactionOverall} title="Agents Rate" />
