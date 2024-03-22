@@ -9,7 +9,7 @@ import DateTime from "./DateTime";
 import ScreenRotationAltIcon from "@mui/icons-material/ScreenRotationAlt";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled, Toolbar } from "@mui/material";
-import { color } from "../const/color";
+import { color } from "../constants/color";
 import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import { getDateTimeUX } from "../utilities/reformatData";

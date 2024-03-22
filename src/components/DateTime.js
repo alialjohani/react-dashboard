@@ -4,7 +4,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
-import { color } from "../const/color";
+import { color } from "../constants/color";
 
 const DateTime = ({ label, datetimeValue, onChange }) => {
   return (

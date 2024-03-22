@@ -5,22 +5,24 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { color } from "../const/color";
+import { color } from "../constants/color";
 
 export default function DropdownList({
   label,
   options,
   handleSelection,
   type,
+  selectedOption,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(selectedOption);
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuItemClick = (event, index) => {
+    console.log("index>>> ", index);
     setSelectedIndex(index);
     setAnchorEl(null);
     handleSelection(index, type);
@@ -80,4 +82,5 @@ DropdownList.propTypes = {
   options: PropTypes.array,
   handleSelection: PropTypes.func,
   type: PropTypes.string,
+  selectedOption: PropTypes.number,
 };
