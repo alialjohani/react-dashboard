@@ -1,5 +1,6 @@
 import React from "react";
-import { useGetGeneralDataQuery } from "../redux/slices/apiSlice";
+import { useGetSpecificDataQuery } from "../redux/slices/apiSlice";
+import { useSearchParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Table from "../components/table/Table";
 import { useSelector } from "react-redux";
@@ -9,12 +10,26 @@ const TablePage = () => {
   const toDatetime = useSelector((state) => state.filter.toDatetime);
   const selectedAgent = useSelector((state) => state.filter.selectedAgent);
   let isContentReady = false;
-
-  const { data, error, isLoading } = useGetGeneralDataQuery({
+  let [searchParams] = useSearchParams();
+  const primary = searchParams.get("primary");
+  const primaryValue = searchParams.get("primaryValue");
+  const secondary = searchParams.get("secondary");
+  const secondaryValue = searchParams.get("secondaryValue");
+  const { data, error, isLoading } = useGetSpecificDataQuery({
     startdatetime: fromDatetime,
     enddatetime: toDatetime,
     agents: selectedAgent,
+    primary: primary,
+    primaryvalue: primaryValue,
+    secondry: secondary,
+    secondryvalue: secondaryValue,
   });
+  console.log("**** data *****: ", data);
+  // const { data, error, isLoading } = useGetGeneralDataQuery({
+  //   startdatetime: fromDatetime,
+  //   enddatetime: toDatetime,
+  //   agents: selectedAgent,
+  // });
 
   if (
     !error &&

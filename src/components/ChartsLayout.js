@@ -35,18 +35,7 @@ const ChartsLayout = ({ charts }) => {
           ml={2}
         >
           {charts[0]}
-          {charts[3]}
-        </Stack>
-        <Stack
-          direction="row"
-          spacing={2}
-          alignItems="center"
-          justifyContent="center"
-          mr={2}
-          ml={2}
-        >
           {charts[1]}
-          {charts[4]}
         </Stack>
         <Stack
           direction="row"
@@ -57,7 +46,17 @@ const ChartsLayout = ({ charts }) => {
           ml={2}
         >
           {charts[2]}
-          {charts[5]}
+          {charts[3]}
+        </Stack>
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+          mr={2}
+          ml={2}
+        >
+          {charts[4]}
         </Stack>
       </>
     );

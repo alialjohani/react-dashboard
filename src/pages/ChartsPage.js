@@ -11,6 +11,7 @@ import { setAgents } from "../redux/slices/filterSlice";
 // To count how many for the 'ServiceSatisfaction' are rated: 1 out of 5, 2 out of 5, ..., 5 out of 5
 import ChartsLayout from "../components/ChartsLayout";
 
+const TITLES = ["Rate of Service Satisfaction", "Rate of Agent Satisfaction"];
 const ChartsPage = () => {
   const dispatch = useDispatch();
   const fromDatetime = useSelector((state) => state.filter.fromDatetime);
@@ -61,26 +62,32 @@ const ChartsPage = () => {
   }, [generalLabels]);
 
   const CHARTS = [
-    <Pie key={0} series={serAgentSatisfactionOverall} title="Agents Rate" />,
+    <Pie key={0} series={serAgentSatisfactionOverall} title={TITLES[0]} />,
     <Bar
       key={1}
       type="group"
       series={serAgentSatisfaction}
       data={generalLabels}
+      questionType="AgentSatisfaction"
+      label="Agent Names"
+      title={TITLES[0]}
     />,
-    <Bar key={2} dataset={timeDataset} />,
-    <Pie
-      key={3}
-      series={serServiceSatisfactionOverall}
-      title="Services Rate"
-    />,
+    <Pie key={3} series={serServiceSatisfactionOverall} title={TITLES[1]} />,
     <Bar
       key={4}
       type="group"
       series={serServiceSatisfaction}
       data={generalLabels}
+      questionType="ServiceSatisfaction"
+      label="Agent Names"
+      title={TITLES[1]}
     />,
-    <Bar key={5} dataset={timeDataset} />,
+    <Bar
+      key={2}
+      dataset={timeDataset}
+      questionType=""
+      title="Total Calls Per Hour"
+    />,
   ];
   return (
     <Box

@@ -22,10 +22,19 @@ export const dashboardData = createApi({
         secondry,
         secondryvalue,
       }) => {
+        console.log(
+          `@API: primary=${primary}, primaryvalue=${primaryvalue}, secondry=${secondry}, secondryvalue=${secondryvalue}`,
+        );
         if (secondry && secondryvalue) {
+          console.log("SECONDARY");
           return `/click_query/?primary=${primary}&primaryvalue=${primaryvalue}&secondry=${secondry}&secondryvalue=${secondryvalue}&startdatetime=${startdatetime}&enddatetime=${enddatetime}&agents=${agents}`;
         }
-        return `/click_query/?primary=${primary}&primaryvalue=${primaryvalue}&startdatetime=${startdatetime}&enddatetime=${enddatetime}&agents=${agents}`;
+        if (primary !== null && primaryvalue !== null) {
+          console.log("PRIMARY");
+          return `/click_query/?primary=${primary}&primaryvalue=${primaryvalue}&startdatetime=${startdatetime}&enddatetime=${enddatetime}&agents=${agents}`;
+        }
+        console.log("ALL");
+        return `/query/?startdatetime=${startdatetime} &enddatetime=${enddatetime}&agents=${agents}`;
       },
     }),
   }),
