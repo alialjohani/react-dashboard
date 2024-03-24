@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import { Box } from "@mui/material";
 import { useGetGeneralDataQuery } from "../redux/slices/apiSlice";
 import Pie from "../components/chart/Pie";
@@ -10,6 +9,8 @@ import { setAgents } from "../redux/slices/filterSlice";
 // To count how many for the 'AgentSatisfaction' are rated: 1 out of 5, 2 out of 5, ..., 5 out of 5
 // To count how many for the 'ServiceSatisfaction' are rated: 1 out of 5, 2 out of 5, ..., 5 out of 5
 import ChartsLayout from "../components/ChartsLayout";
+import Loading from "../components/Loading";
+import Alert from "@mui/material/Alert";
 
 const TITLES = ["Rate of Service Satisfaction", "Rate of Agent Satisfaction"];
 const ChartsPage = () => {
@@ -19,14 +20,15 @@ const ChartsPage = () => {
   const selectedAgent = useSelector((state) => state.filter.selectedAgent);
 
   let isContentReady = false;
-
-  // Using a query hook automatically fetches data and returns query values
+  // Using a query hook fetches data and returns query values
   const { data, error, isLoading } = useGetGeneralDataQuery({
     startdatetime: fromDatetime,
     enddatetime: toDatetime,
     agents: selectedAgent,
   });
-
+  console.log("data >>> ", data);
+  console.log("error >>> ", error);
+  console.log("isLoading >>> ", isLoading);
   let serAgentSatisfactionOverall;
   let serServiceSatisfactionOverall;
   let serServiceSatisfaction;
@@ -89,6 +91,7 @@ const ChartsPage = () => {
       title="Total Calls Per Hour"
     />,
   ];
+
   return (
     <Box
       mt={2}
@@ -98,9 +101,12 @@ const ChartsPage = () => {
     >
       <div className="App">
         {error ? (
-          <>Oh no, there was an error</>
+          <Alert severity="error" sx={{ marginTop: "-17px" }}>
+            There was an error while fetching data from server. Please try again
+            later.
+          </Alert>
         ) : isLoading ? (
-          <>Loading...</>
+          <Loading />
         ) : isContentReady ? (
           <>
             <ChartsLayout charts={CHARTS} />
@@ -112,64 +118,6 @@ const ChartsPage = () => {
 };
 
 export default ChartsPage;
-// ON CLICK ->  TABLE
-// BREAK POINT HANDLING
-// BAR CHART (CLEAR TITLES)
-// LOADING, ERROR HANDLING!
-
-// eslint-disable-next-line no-unused-vars
-// return (
-//   <Box
-//     mt={2}
-//     sx={{ flexGrow: 1 }}
-//     justifyContent="center"
-//     alignItems="center"
-//   >
-//     <div className="App">
-//       {error ? (
-//         <>Oh no, there was an error</>
-//       ) : isLoading ? (
-//         <>Loading...</>
-//       ) : isContentReady ? (
-//         <Grid
-//           container
-//           spacing={1}
-//           justifyContent="center"
-//           alignItems="center"
-//           direction="row"
-//           m="auto"
-//         >
-//           <Grid item xs={6} md={mdsize} sx={{ flexGrow: 1 }}>
-//             <Pie series={serAgentSatisfactionOverall} title="Agents Rate" />
-//           </Grid>
-//           <Grid item xs={6} md={mdsize}>
-//             <Bar
-//               type="group"
-//               series={serAgentSatisfaction}
-//               data={generalLabels}
-//             />
-//           </Grid>
-//           <Grid item xs={6} md={mdsize}>
-//             <Bar dataset={timeDataset} />
-//           </Grid>
-//           <Grid item xs={6} md={mdsize}>
-//             <Pie
-//               series={serServiceSatisfactionOverall}
-//               title="Services Rate"
-//             />
-//           </Grid>
-//           <Grid item xs={6} md={mdsize}>
-//             <Bar
-//               type="group"
-//               series={serServiceSatisfaction}
-//               data={generalLabels}
-//             />
-//           </Grid>
-//           <Grid item xs={6} md={mdsize}>
-//             <Bar dataset={timeDataset} />
-//           </Grid>
-//         </Grid>
-//       ) : null}
-//     </div>
-//   </Box>
-// );
+// look & test
+// publish
+// add more data (dif time)

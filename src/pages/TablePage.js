@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Table from "../components/table/Table";
 import { useSelector } from "react-redux";
+import Loading from "../components/Loading";
+import Alert from "@mui/material/Alert";
 
 const TablePage = () => {
   const fromDatetime = useSelector((state) => state.filter.fromDatetime);
@@ -38,12 +40,16 @@ const TablePage = () => {
   ) {
     isContentReady = true;
   }
+
   return (
     <Box mt={2} sx={{ flexGrow: 1 }}>
       {error ? (
-        <>Oh no, there was an error</>
+        <Alert severity="error" sx={{ marginTop: "-17px" }}>
+          There was an error while fetching data from server. Please try again
+          later.
+        </Alert>
       ) : isLoading ? (
-        <>Loading...</>
+        <Loading />
       ) : isContentReady ? (
         <Table rows={data.success} />
       ) : null}

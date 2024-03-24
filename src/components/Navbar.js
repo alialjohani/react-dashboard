@@ -42,6 +42,12 @@ const Navbar = ({ toggleDrawer }) => {
   const [localToDatetime, setLocalToDatetime] = React.useState(
     dayjs(toDatetime),
   );
+
+  console.log("fromDatetime >>> ", fromDatetime);
+  console.log("toDatetime >>> ", toDatetime);
+  console.log("localFromDatetime >>> ", localFromDatetime);
+  console.log("localToDatetime >>> ", localToDatetime);
+
   const dispatch = useDispatch();
   const mainLabelView =
     pathname === VIEWS.TABLE_VIEW.path
@@ -56,11 +62,8 @@ const Navbar = ({ toggleDrawer }) => {
     }
   };
   const handleShowButoonClick = () => {
-    console.log(">> clicked");
-    // update datetime (from, to), dispatch
     dispatch(setFromDatetime(getDateTimeUX(localFromDatetime)));
     dispatch(setToDatetime(getDateTimeUX(localToDatetime)));
-    // update charts by making new request
   };
 
   return (

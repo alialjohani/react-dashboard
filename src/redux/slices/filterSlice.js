@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import { CHATRTS_LAYOUTS } from "../../constants/general";
+import { getDateTimeUX } from "../../utilities/reformatData";
 
-// startdatetime: "01/05/2023 20:00",
-//     enddatetime: "31/05/2023 04:00",
 const initialState = {
-  fromDatetime: dayjs().format().substring(0, 19).replace("T", " "),
-  toDatetime: dayjs().format().substring(0, 19).replace("T", " "),
+  fromDatetime: getDateTimeUX(dayjs("2023-05-01T00:00:00").format()),
+  toDatetime: getDateTimeUX(dayjs("2023-05-10T00:00:00").format()),
   agents: [],
   selectedAgent: "*",
   selectedLayout: CHATRTS_LAYOUTS[2],
