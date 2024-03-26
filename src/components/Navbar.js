@@ -8,18 +8,12 @@ import IconButton from "@mui/material/IconButton";
 import DateTime from "./DateTime";
 import ScreenRotationAltIcon from "@mui/icons-material/ScreenRotationAlt";
 import MenuIcon from "@mui/icons-material/Menu";
-import { styled, Toolbar } from "@mui/material";
+import { Toolbar } from "@mui/material";
 import { color } from "../constants/color";
 import { useSelector, useDispatch } from "react-redux";
 import dayjs from "dayjs";
 import { getDateTimeUX } from "../utilities/reformatData";
 import { setFromDatetime, setToDatetime } from "../redux/slices/filterSlice";
-
-const StyledToolBar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-});
 
 const VIEWS = {
   CHARTS_VIEW: {
@@ -68,7 +62,84 @@ const Navbar = ({ toggleDrawer }) => {
 
   return (
     <AppBar position="static" sx={{ padding: 1 }}>
-      <StyledToolBar>
+      <Toolbar
+        sx={{
+          display: { xs: "flex", sm: "none" },
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center",
+          minHeight: 200,
+        }}
+      >
+        <Box
+          sx={{
+            width: "30%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <IconButton
+            flex={1}
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            sx={{
+              fontSize: "20px",
+              color: color.blueDegree,
+              display: { xs: "contents" },
+            }}
+            onClick={() => {
+              toggleDrawer(true);
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Button
+            flex={1}
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            sx={{
+              fontSize: "20px",
+            }}
+            variant="text"
+            color="primary"
+            startIcon={<ScreenRotationAltIcon />}
+            onClick={(e) => handleSwitchPage(e.target.value)}
+          ></Button>
+        </Box>
+        <DateTime
+          flex={1}
+          label="Show data from:"
+          datetimeValue={localFromDatetime}
+          onChange={setLocalFromDatetime}
+        />
+        <DateTime
+          flex={1}
+          label="Show data until:"
+          datetimeValue={localToDatetime}
+          onChange={setLocalToDatetime}
+        />
+        <Button
+          flex={1}
+          variant="contained"
+          color="primary"
+          text="secondary"
+          onClick={handleShowButoonClick}
+        >
+          Show
+        </Button>
+      </Toolbar>
+      <Toolbar
+        sx={{
+          display: { xs: "none", sm: "flex" },
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Box
           flex={1}
           sx={{
@@ -84,7 +155,11 @@ const Navbar = ({ toggleDrawer }) => {
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
-            sx={{ fontSize: "20px", color: color.blueDegree }}
+            sx={{
+              fontSize: "20px",
+              color: color.blueDegree,
+              display: { xs: "contents" },
+            }}
             onClick={() => {
               toggleDrawer(true);
             }}
@@ -99,6 +174,7 @@ const Navbar = ({ toggleDrawer }) => {
             aria-haspopup="true"
             sx={{
               fontSize: "20px",
+              display: { xs: "none", sm: "contents" },
             }}
             variant="text"
             color="primary"
@@ -139,7 +215,7 @@ const Navbar = ({ toggleDrawer }) => {
             Show
           </Button>
         </Box>
-      </StyledToolBar>
+      </Toolbar>
     </AppBar>
   );
 };

@@ -27,6 +27,28 @@ const columns = [
   },
 ];
 
+const columnsSmall = [
+  { field: "surveyCallerId", headerName: "Phone Number", width: 100 },
+  {
+    field: "ServiceSatisfaction",
+    headerName: "Service Satisfaction (out of 5)",
+    width: 100,
+  },
+  {
+    field: "AgentSatisfaction",
+    headerName: "Agent Satisfaction (out of 5)",
+    width: 100,
+  },
+  { field: "agentName", headerName: "Agent Name", width: 100 },
+  {
+    field: "createdDate",
+    headerName: "Date/Time",
+    width: 100,
+    valueFormatter: ({ value }) =>
+      value.replace("T", " ").replace(/.(\d{3})Z/, ""),
+  },
+];
+
 const initialState = {
   sorting: {
     sortModel: [{ field: "surveyId", sort: "desc" }],
@@ -35,8 +57,25 @@ const initialState = {
 };
 const Table = ({ rows }) => {
   return (
-    <Box m={4}>
-      <div style={{ height: 500, width: "100%" }}>
+    <>
+      <Box
+        m={4}
+        sx={{
+          display: { xs: "flex", sm: "none" },
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <DataGrid
+          initialState={initialState}
+          rows={rows}
+          columns={columnsSmall}
+          slots={{ toolbar: GridToolbar }}
+          getRowId={(row) => row.surveyId}
+          pageSizeOptions={[5, 10, 25]}
+        />
+      </Box>
+      <Box m={4} sx={{ display: { xs: "none", sm: "block" } }}>
         <DataGrid
           initialState={initialState}
           rows={rows}
@@ -45,8 +84,8 @@ const Table = ({ rows }) => {
           getRowId={(row) => row.surveyId}
           pageSizeOptions={[5, 10, 25]}
         />
-      </div>
-    </Box>
+      </Box>
+    </>
   );
 };
 

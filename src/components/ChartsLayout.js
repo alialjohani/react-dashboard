@@ -1,12 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 
 const ChartsLayout = ({ charts }) => {
+  const theme = useTheme();
+  //const greaterThanMid = useMediaQuery(theme.breakpoints.up("md"));
+  const smallToMid = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
   const selectedLayout = useSelector((state) => state.filter.selectedLayout);
   let chartsPerRow = Number(selectedLayout[0]);
-  if (chartsPerRow === 1) {
+  if (chartsPerRow === 1 || smallToMid || lessThanSmall) {
     return charts.map((chart, key) => {
       return (
         <Stack
