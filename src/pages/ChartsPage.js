@@ -38,7 +38,9 @@ const ChartsPage = () => {
   if (
     !error &&
     data &&
-    (data.length > 0 || Object.prototype.hasOwnProperty.call(data, "success"))
+    (data.length > 0 ||
+      (Object.prototype.hasOwnProperty.call(data, "success") &&
+        data.success.length > 0))
   ) {
     const {
       seriesAgentSatisfactionOverall,

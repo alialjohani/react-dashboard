@@ -26,7 +26,6 @@ const TablePage = () => {
     secondry: secondary,
     secondryvalue: secondaryValue,
   });
-  console.log("**** data *****: ", data);
   // const { data, error, isLoading } = useGetGeneralDataQuery({
   //   startdatetime: fromDatetime,
   //   enddatetime: toDatetime,

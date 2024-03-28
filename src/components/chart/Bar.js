@@ -14,6 +14,7 @@ const NUMBERS = {
   fives: 5,
 };
 const Bar = ({ series, data, type, dataset, questionType, label, title }) => {
+  console.log(">>dataset >> ", dataset);
   const navigate = useNavigate();
   const allAgents = useSelector((state) => state.filter.agents);
   const handleClick = (d) => {
@@ -24,7 +25,7 @@ const Bar = ({ series, data, type, dataset, questionType, label, title }) => {
         pathname: "table",
         search: createSearchParams({
           primary: "timeOnly",
-          primaryValue: d.dataIndex,
+          primaryValue: dataset[d.dataIndex].hourLabel,
         }).toString(),
       });
     } else {

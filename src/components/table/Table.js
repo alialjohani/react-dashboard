@@ -2,6 +2,8 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const columns = [
   { field: "surveyId", headerName: "Survey Id", width: 80 },
@@ -56,36 +58,32 @@ const initialState = {
   pagination: { paginationModel: { pageSize: 10 } },
 };
 const Table = ({ rows }) => {
+  const theme = useTheme();
+  const lessThanSmall = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <>
-      <Box
-        m={4}
-        sx={{
-          display: { xs: "flex", sm: "none" },
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <DataGrid
-          initialState={initialState}
-          rows={rows}
-          columns={columnsSmall}
-          slots={{ toolbar: GridToolbar }}
-          getRowId={(row) => row.surveyId}
-          pageSizeOptions={[5, 10, 25]}
-        />
-      </Box>
-      <Box m={4} sx={{ display: { xs: "none", sm: "block" } }}>
-        <DataGrid
-          initialState={initialState}
-          rows={rows}
-          columns={columns}
-          slots={{ toolbar: GridToolbar }}
-          getRowId={(row) => row.surveyId}
-          pageSizeOptions={[5, 10, 25]}
-        />
-      </Box>
-    </>
+    <Box m={2} sx={{ justifyContent: "center", alignItems: "center" }}>
+      <div style={{ height: 500, width: "100%" }}>
+        {lessThanSmall ? (
+          <DataGrid
+            initialState={initialState}
+            rows={rows}
+            columns={columnsSmall}
+            slots={{ toolbar: GridToolbar }}
+            getRowId={(row) => row.surveyId}
+            pageSizeOptions={[5, 10, 25]}
+          />
+        ) : (
+          <DataGrid
+            initialState={initialState}
+            rows={rows}
+            columns={columns}
+            slots={{ toolbar: GridToolbar }}
+            getRowId={(row) => row.surveyId}
+            pageSizeOptions={[5, 10, 25]}
+          />
+        )}
+      </div>
+    </Box>
   );
 };
 
