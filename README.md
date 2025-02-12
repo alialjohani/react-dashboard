@@ -2,8 +2,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## For Live Demo
-[https://reactdashboard.alialjohani.com](https://reactdashboard.alialjohani.com)
 
 ## Available Scripts
 
